@@ -27,59 +27,54 @@ using Beanstream.Api.SDK.Domain;
 
 namespace Beanstream.Api.SDK
 {
-	/// <summary>
-	/// Response information when a payment is processed.
-	/// </summary>
-	public class PaymentResponse : IResponse
-	{
-		[JsonProperty(PropertyName = "id")]
-		public string TransactionId { get; set; }
+    /// <summary>
+    /// Response information when a payment is processed.
+    /// </summary>
+    public class PaymentResponse : IResponse
+    {
+        [JsonProperty(PropertyName = "id")]
+        public string TransactionId { get; set; }
 
+        [JsonProperty(PropertyName = "approved")]
+        protected string Approved { get; set; }
 
-		[JsonProperty(PropertyName = "approved")]
-		protected string Approved { get; set; }
+        [JsonProperty(PropertyName = "message_id")]
+        public string MessageId { get; set; }
 
-		
-		[JsonProperty(PropertyName = "message_id")]
-		public string MessageId { get; set; }
+        [JsonProperty(PropertyName = "message")]
+        public string Message { get; set; }
 
-		
-		[JsonProperty(PropertyName = "message")]
-		public string Message { get; set; }
+        [JsonProperty(PropertyName = "auth_code")]
+        public string AuthCode { get; set; }
 
-		
-		[JsonProperty(PropertyName = "auth_code")]
-		public string AuthCode { get; set; }
+        [JsonProperty(PropertyName = "created")]
+        public DateTime Created { get; set; }
 
-		
-		[JsonProperty(PropertyName = "created")]
-		public DateTime Created { get; set; }
+        [JsonProperty(PropertyName = "order_number")]
+        public string OrderNumber { get; set; }
 
-		
-		[JsonProperty(PropertyName = "order_number")]
-		public string OrderNumber { get; set; }
+        [JsonProperty(PropertyName = "type")]
+        public string TransType { get; set; }
 
-		
-		[JsonProperty(PropertyName = "type")]
-		public string TransType { get; set; }
+        [JsonProperty(PropertyName = "risk_score")]
+        public decimal RiskScore { get; set; }
 
-		
-		[JsonProperty(PropertyName = "payment_method")]
-		public string PaymentMethod { get; set; }
+        [JsonProperty(PropertyName = "amount")]
+        public decimal Amount { get; set; }
 
-		
-		[JsonProperty(PropertyName = "card", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-		public CardResponse Card { get; set; }
+        [JsonProperty(PropertyName = "payment_method")]
+        public string PaymentMethod { get; set; }
 
-		//TODO being implemented
-		//[JsonProperty(PropertyName = "swipe", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-		//public Swipe Swipe { get; set; }
+        [JsonProperty(PropertyName = "card", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public CardResponse Card { get; set; }
 
-		
-		[JsonProperty(PropertyName = "links", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-		public IList<Link> Links { get; set; }
+        //TODO being implemented
+        //[JsonProperty(PropertyName = "swipe", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        //public Swipe Swipe { get; set; }
 
+        [JsonProperty(PropertyName = "links", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Link> Links { get; set; }
 
-	}
+    }
 }
 

@@ -20,29 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
+using Newtonsoft.Json;
 
 /// <summary>
 /// A token for a legato tokenization request. Each token is single-use.
 /// </summary>
-using Newtonsoft.Json;
-
-
 namespace Beanstream.Api.SDK
 {
-	public class LegatoTokenResponse
-	{
-		[JsonProperty(PropertyName = "token")]
-		public string Token { get; set; }
+    public class LegatoTokenResponse
+    {
+        [JsonProperty(PropertyName = "token")]
+        public string Token { get; set; }
 
-		[JsonProperty(PropertyName = "code")]
-		public string Code { get; set; }
+        [JsonProperty(PropertyName = "code")]
+        public string Code { get; set; }
 
-		[JsonProperty(PropertyName = "version")]
-		public string Version { get; set; }
+        [JsonProperty(PropertyName = "version")]
+        public string Version { get; set; }
 
-		[JsonProperty(PropertyName = "message")]
-		public string Message { get; set; }
-	}
+        [JsonProperty(PropertyName = "message")]
+        public string Message { get; set; }
+    }
 }
 

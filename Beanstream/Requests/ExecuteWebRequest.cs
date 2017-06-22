@@ -27,84 +27,91 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Beanstream.Api.SDK.Data;
-using Beanstream.Api.SDK.Domain;
 
 namespace Beanstream.Api.SDK.Requests
 {
-	public class ExecuteWebRequest : IWebCommandSpec<string>
-	{
-		private readonly RequestObject _requestObject;
+    public class ExecuteWebRequest : IWebCommandSpec<string>
+    {
+        private readonly RequestObject _requestObject;
 
-		public ExecuteWebRequest(RequestObject requestObject)
-		{
-			Url = requestObject.Url;
-			_requestObject = requestObject;
-		}
+        public ExecuteWebRequest(RequestObject requestObject)
+        {
+            Url = requestObject.Url;
+            _requestObject = requestObject;
+        }
 
-		public Uri Url { get; private set; }
+        public Uri Url { get; private set; }
 
-		public void PrepareRequest(WebRequest request)
-		{
-			var httpRequest = request as HttpWebRequest;
+        public void PrepareRequest(WebRequest request)
+        {
+            var httpRequest = request as HttpWebRequest;
 
-			if (httpRequest == null)
-			{
-				throw new InvalidOperationException("URL AuthType not supported: " + Url.Scheme);
-			}
+            if (httpRequest == null)
+            {
+                throw new InvalidOperationException("URL AuthType not supported: " + Url.Scheme);
+            }
 
-			httpRequest.Method = _requestObject.Method.ToString().ToUpper();
-			if (_requestObject.Credentials != null) // we might use this for a no auth connection
-				httpRequest.Headers.Add("Authorization", GetAuthorizationHeaderString(_requestObject.Credentials));
-			httpRequest.ContentType = "application/json";
-			//Console.WriteLine("auth: "+GetAuthorizationHeaderString(_requestObject.Credentials));
-			//Console.WriteLine ("URL: "+httpRequest.Method.ToUpper()+" "+Url);
+            httpRequest.Method = _requestObject.Method.ToString().ToUpper();
+            if (_requestObject.Credentials != null) // we might use this for a no auth connection
+            {
+                httpRequest.Headers.Add("Authorization", GetAuthorizationHeaderString(_requestObject.Credentials));
+            }
+            if (!string.IsNullOrEmpty(_requestObject.SubMerchantId))
+            {
+                httpRequest.Headers.Add("Sub-Merchant-Id", _requestObject.SubMerchantId);
+            }
+            httpRequest.ContentType = "application/json";
+            //Console.WriteLine("auth: "+GetAuthorizationHeaderString(_requestObject.Credentials));
+            //Console.WriteLine ("URL: "+httpRequest.Method.ToUpper()+" "+Url);
 
-			if (_requestObject.Data != null) {
-				var data = JsonConvert.SerializeObject (
-			           _requestObject.Data,
-			           Formatting.Indented,
-			           new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore } // ignore null values
-		         );
+            if (_requestObject.Data != null)
+            {
+                var data = JsonConvert.SerializeObject(
+                       _requestObject.Data,
+                       Formatting.Indented,
+                       new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore } // ignore null values
+                 );
 
-				//SConsole.WriteLine ("Request Data:\n"+data); // useful to examine output
+                //Console.WriteLine ("Request Data:\n"+data); // useful to examine output
 
-				using (var writer = new StreamWriter (request.GetRequestStream ())) {
-					writer.Write (data);
-				}
-			}
-		}
+                using (var writer = new StreamWriter(request.GetRequestStream()))
+                {
+                    writer.Write(data);
+                }
+            }
+        }
 
-		public string MapResponse(WebResponse response)
-		{
-			if (response == null)
-			{
-				throw new Exception("Could not get a response from Beanstream API");
-			}
-			
-			return GetResponseBody(response);
-		}
+        public string MapResponse(WebResponse response)
+        {
+            if (response == null)
+            {
+                throw new Exception("Could not get a response from Beanstream API");
+            }
 
-		private static string GetResponseBody(WebResponse response)
-		{
-			var stream = response.GetResponseStream();
+            return GetResponseBody(response);
+        }
 
-			if (stream == null)
-			{
-				throw new Exception("Could not get a response from Beanstream API");
-			}
+        private static string GetResponseBody(WebResponse response)
+        {
+            var stream = response.GetResponseStream();
 
-			using (var reader = new StreamReader(stream))
-			{
-				return reader.ReadToEnd();
-			}
-		}
+            if (stream == null)
+            {
+                throw new Exception("Could not get a response from Beanstream API");
+            }
 
-		private static string GetAuthorizationHeaderString(Credentials credentials)
-		{
-			var plainAuth = Encoding.UTF8.GetBytes(String.Format("{0}:{1}", credentials.Username, credentials.Password));
-			var base64Auth = Convert.ToBase64String(plainAuth);
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
 
-			return String.Format("{0} {1}", credentials.AuthScheme, base64Auth);
-		}
-	}
+        private static string GetAuthorizationHeaderString(Credentials credentials)
+        {
+            var plainAuth = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", credentials.Username, credentials.Password));
+            var base64Auth = Convert.ToBase64String(plainAuth);
+
+            return string.Format("{0} {1}", credentials.AuthScheme, base64Auth);
+        }
+    }
 }

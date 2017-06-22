@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
-using System.Reflection;
 
 /// <summary>
 /// Enums are zero-based, yet the fields in the Query search are 1-based. So we have to increment each output value by 1
@@ -30,18 +29,20 @@ using System.Reflection;
 /// </summary>
 namespace Beanstream
 {
-	public class QueryFieldStringEnumConverter : Newtonsoft.Json.Converters.StringEnumConverter
-	{
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			if (value is QueryFields)
-			{
-				// increment the value to make it 1-based
-				writer.WriteValue( ((int)value)+1 );
-			}
-			else
-				base.WriteJson(writer, value, serializer);
-		}
-	}
+    public class QueryFieldStringEnumConverter : Newtonsoft.Json.Converters.StringEnumConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is QueryFields)
+            {
+                // increment the value to make it 1-based
+                writer.WriteValue((int)value + 1);
+            }
+            else
+            {
+                base.WriteJson(writer, value, serializer);
+            }
+        }
+    }
 }
 

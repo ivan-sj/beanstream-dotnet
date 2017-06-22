@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 
 /// <summary>
@@ -29,22 +29,22 @@ using Newtonsoft.Json;
 /// </summary>
 namespace Beanstream.Api.SDK.Domain
 {
-	public class CustomFields
-	{
-		[JsonProperty(PropertyName = "ref1")]
-		public string Ref1 { get; set; }
+    public class CustomFields
+    {
+        [JsonProperty(PropertyName = "ref1")]
+        public string Ref1 { get; set; }
 
-		[JsonProperty(PropertyName = "ref2")]
-		public string Ref2 { get; set; }
+        [JsonProperty(PropertyName = "ref2")]
+        public string Ref2 { get; set; }
 
-		[JsonProperty(PropertyName = "ref3")]
-		public string Ref3 { get; set; }
+        [JsonProperty(PropertyName = "ref3")]
+        public string Ref3 { get; set; }
 
-		[JsonProperty(PropertyName = "ref4")]
-		public string Ref4 { get; set; }
+        [JsonProperty(PropertyName = "ref4")]
+        public string Ref4 { get; set; }
 
-		[JsonProperty(PropertyName = "ref5")]
-		public string Ref5 { get; set; }
-	}
+        [JsonProperty(PropertyName = "ref5")]
+        public string Ref5 { get; set; }
+    }
 }
 

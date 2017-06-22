@@ -20,28 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
-using Beanstream.Api.SDK.Requests;
+
+using Newtonsoft.Json;
+using Beanstream.Api.SDK.Domain;
 
 /// <summary>
 /// Token payments use a token generated from Beanstream's Legato Javascript utility.
 /// The token is a unique one-time-use reference to the user's credit card information.
 /// 
 /// </summary>
-using Newtonsoft.Json;
-using Beanstream.Api.SDK.Domain;
-
-
 namespace Beanstream.Api.SDK.Requests
 {
-	public class TokenPaymentRequest : PaymentRequest
-	{
-		[JsonProperty(PropertyName = "token")]
-		public Token Token { get; set; }
+    public class TokenPaymentRequest : PaymentRequest
+    {
+        [JsonProperty(PropertyName = "token")]
+        public Token Token { get; set; }
 
-		public TokenPaymentRequest() {
-			PaymentMethod = PaymentMethods.token.ToString ();
-		}
-	}
+        public TokenPaymentRequest()
+        {
+            PaymentMethod = PaymentMethods.token.ToString();
+        }
+    }
 }
 

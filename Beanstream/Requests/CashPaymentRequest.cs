@@ -20,7 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
+
 
 /// <summary>
 /// Process Cash payments. This is a useful way to record a payment that
@@ -28,17 +29,15 @@ using System;
 /// NOTE: You will need to have these payment options ACTIVATED by calling Beanstream 
 /// support at 1-888-472-0811
 /// </summary>
-using Newtonsoft.Json;
-
-
 namespace Beanstream.Api.SDK.Requests
 {
-	public class CashPaymentRequest : PaymentRequest
-	{
+    public class CashPaymentRequest : PaymentRequest
+    {
 
-		public CashPaymentRequest() {
-			PaymentMethod = PaymentMethods.cash.ToString ();
-		}
-	}
+        public CashPaymentRequest()
+        {
+            PaymentMethod = PaymentMethods.cash.ToString();
+        }
+    }
 }
 

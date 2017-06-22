@@ -20,28 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
-using Beanstream.Api.SDK.Requests;
+
 using Newtonsoft.Json;
-using Beanstream.Api.SDK;
-using Beanstream.Api.SDK.Domain;
 
 namespace Beanstream.Api.SDK.Requests
 {
-	public class ProfilePaymentRequest : PaymentRequest
-	{
-		/// <summary>
-		/// Make a payment with a saved profile if you have saved
-		/// credit card information in it.
-		/// </summary>
-		/// <value>The payment profile field containing the profile ID and the card ID (1, 2, 3...)</value>
-		[JsonProperty(PropertyName = "payment_profile")]
-		public PaymentProfileField PaymentProfile { get; set; }
+    public class ProfilePaymentRequest : PaymentRequest
+    {
+        /// <summary>
+        /// Make a payment with a saved profile if you have saved
+        /// credit card information in it.
+        /// </summary>
+        /// <value>The payment profile field containing the profile ID and the card ID (1, 2, 3...)</value>
+        [JsonProperty(PropertyName = "payment_profile")]
+        public PaymentProfileField PaymentProfile { get; set; }
 
 
-		public ProfilePaymentRequest() {
-			PaymentMethod = PaymentMethods.payment_profile.ToString ();
-		}
-	}
+        public ProfilePaymentRequest()
+        {
+            PaymentMethod = PaymentMethods.payment_profile.ToString();
+        }
+    }
 }
 

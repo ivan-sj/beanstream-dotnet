@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 
 /// <summary>
@@ -28,18 +28,18 @@ using Newtonsoft.Json;
 /// </summary>
 namespace Beanstream
 {
-	public class Criteria
-	{
-		[JsonConverter(typeof(QueryFieldStringEnumConverter))]
-		[JsonProperty(PropertyName = "field")]
-		public QueryFields Field { get; set; }
+    public class Criteria
+    {
+        [JsonConverter(typeof(QueryFieldStringEnumConverter))]
+        [JsonProperty(PropertyName = "field")]
+        public QueryFields Field { get; set; }
 
-		[JsonConverter(typeof(OperatorsStringEnumConverter))]
-		[JsonProperty(PropertyName = "operator")]
-		public Operators Operator { get; set; }
+        [JsonConverter(typeof(OperatorsStringEnumConverter))]
+        [JsonProperty(PropertyName = "operator")]
+        public Operators Operator { get; set; }
 
-		[JsonProperty(PropertyName = "value")]
-		public string Value { get; set; }
-	}
+        [JsonProperty(PropertyName = "value")]
+        public string Value { get; set; }
+    }
 }
 

@@ -23,18 +23,21 @@
 
 namespace Beanstream.Api.SDK
 {
-	internal class BeanstreamUrls
-	{
-		public static string BaseUrl = "https://{p}.beanstream.com/api";
-		public static string BasePaymentsUrl = BaseUrl + "/{v}/payments";
-		public static string BaseProfilesUrl = BaseUrl + "/{v}/profiles";
-		public static string PreAuthCompletionsUrl = BasePaymentsUrl + "/{id}/completions";
-		public static string ReturnsUrl = BasePaymentsUrl + "/{id}/returns";
-		public static string VoidsUrl =  BasePaymentsUrl + "/{id}/void";
-		public static string GetPaymentUrl =  BasePaymentsUrl + "/{id}";
-		public static string ContinuationsUrl = BasePaymentsUrl + "/{md}/continue";
-		public static string ReportsUrl =  BaseUrl + "/{v}/reports";
-		public static string ProfileUri = "/{id}";
-		public static string CardsUrl = BaseProfilesUrl+ProfileUri+"/cards";
-	}
+    internal class BeanstreamUrls
+    {
+        public static string BaseUrl = "https://{p}.beanstream.com";
+        public static string BaseApiUrl = BaseUrl + "/api";
+        public static string BasePaymentsUrl = BaseApiUrl + "/{v}/payments";
+        public static string BaseProfilesUrl = BaseApiUrl + "/{v}/profiles";
+        public static string ProfileUrl = BaseProfilesUrl + "/{pid}";
+        public static string PreAuthCompletionsUrl = BasePaymentsUrl + "/{id}/completions";
+        public static string ReturnsUrl = BasePaymentsUrl + "/{id}/returns";
+        public static string VoidsUrl = BasePaymentsUrl + "/{id}/void";
+        public static string GetPaymentUrl = BasePaymentsUrl + "/{id}";
+        public static string ContinuationsUrl = BasePaymentsUrl + "/{md}/continue";
+        public static string ReportsUrl = BaseApiUrl + "/{v}/reports";
+        public static string CardsUrl = ProfileUrl + "/cards";
+        public static string CardUrl = CardsUrl + "/{cid}";
+        public static string TokenUrl = BaseUrl + "/scripts/tokenization/tokens";
+    }
 }

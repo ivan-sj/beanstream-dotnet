@@ -27,146 +27,164 @@ using System.IO;
 using System.Net;
 using Beanstream.Api.SDK.Data;
 using Beanstream.Api.SDK.Exceptions;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Creates the actual web request and returns the response object.
 /// It requires a merchantID and passcode to connect to the Beanstream REST API.
 /// </summary>
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Beanstream.Api.SDK.Domain;
-
-
 namespace Beanstream.Api.SDK.Requests
 {
-	public class HttpsWebRequest
-	{
+    public class HttpsWebRequest
+    {
 
-		private string _merchantId;
-		private string _passcode;
-		private IWebCommandExecuter _executer = new WebCommandExecuter();
+        private string _merchantId;
+        private string _subMerchantId;
+        private string _passcode;
+        private IWebCommandExecuter _executer = new WebCommandExecuter();
 
-		public int MerchantId {
-			set { _merchantId = value.ToString (CultureInfo.InvariantCulture); }
-		}
+        public int MerchantId
+        {
+            set { _merchantId = value.ToString(CultureInfo.InvariantCulture); }
+        }
 
-		public string Passcode {
-			set { _passcode = value; }
-		}
+        public int? SubMerchantId
+        {
+            set { _subMerchantId = value.ToString(); }
+        }
 
-		public IWebCommandExecuter WebCommandExecutor { 
-			set { _executer = value; } 
-		}
+        public string Passcode
+        {
+            set { _passcode = value; }
+        }
 
-		public string ProcessTransaction(HttpMethod method, string url)
-		{
-			return ProcessTransaction (method, url, null);
-		}
+        public IWebCommandExecuter WebCommandExecutor
+        {
+            set { _executer = value; }
+        }
 
-		public string ProcessTransaction(HttpMethod method, string url, object data)
-		{
-			try
-			{
-				var authScheme = "Passcode";
+        public string ProcessTransaction(HttpMethod method, string url)
+        {
+            return ProcessTransaction(method, url, null);
+        }
 
-				Credentials authInfo = null;
-				// this request might not be using authorization
-				if (_passcode != null)
-					authInfo = new Credentials(_merchantId, _passcode, authScheme);
+        public string ProcessTransaction(HttpMethod method, string url, object data)
+        {
+            try
+            {
+                const string authScheme = "Passcode";
 
-				var requestInfo = new RequestObject(method, url, authInfo, data);
+                Credentials authInfo = null;
+                // this request might not be using authorization
+                if (_passcode != null)
+                {
+                    authInfo = new Credentials(_merchantId, _passcode, authScheme);
+                }
 
-				var command = new ExecuteWebRequest(requestInfo);
-				var result = _executer.ExecuteCommand(command);
+                var requestInfo = new RequestObject(method, url, authInfo, _subMerchantId, data);
 
-				return result.Response;
-			}
-			catch (WebException ex) //catch web command exception
-			{
-				if (ex.Status != WebExceptionStatus.ProtocolError)
-				{
-					throw;
-				}
+                var command = new ExecuteWebRequest(requestInfo);
+                var result = _executer.ExecuteCommand(command);
 
-				throw BeanstreamApiException(ex);
-			}
-		}
+                return result.Response;
+            }
+            catch (WebException ex) //catch web command exception
+            {
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    throw;
+                }
 
-		private static Exception BeanstreamApiException(WebException webEx)
-		{
-			var response = webEx.Response as HttpWebResponse;
+                throw BeanstreamApiException(ex);
+            }
+        }
 
-			if (response == null)
-			{
-				return new CommunicationException("Could not process the request succesfully", webEx);
-			}
+        private static Exception BeanstreamApiException(WebException webEx)
+        {
+            var response = webEx.Response as HttpWebResponse;
 
-			var statusCode = response.StatusCode;
-			var data = GetResponseBody(response); //Get from exception
+            if (response == null)
+            {
+                return new CommunicationException("Could not process the request succesfully", webEx);
+            }
 
-			var code = -1;
-			var category = -1;
-			var message = "";
-			if (data != null) {
-				if (response.ContentType.Contains("application/json") ) {
-					try {
-						JToken json = JObject.Parse(data);
-						if ( json != null && json.SelectToken("code") != null )
-							code = Convert.ToInt32( json.SelectToken("code") );
-						if ( json != null && json.SelectToken("category") != null )
-							category = Convert.ToInt32( json.SelectToken("category") );
-						if ( json != null && json.SelectToken("message") != null )
-							message = json.SelectToken("message").ToString();
-					} catch (Exception e) {
-						// data is not json and not in the format we expect
-					}
-				}
-			}
+            var statusCode = response.StatusCode;
+            var data = GetResponseBody(response); //Get from exception
 
-			switch (statusCode)
-			{
-				case HttpStatusCode.Found: // 302
-					return new RedirectionException(statusCode, data, message, category, code); // Used for redirection response in 3DS, Masterpass and Interac Online requests
+            var code = -1;
+            var category = -1;
+            var message = "";
+            if (data != null)
+            {
+                if (response.ContentType.Contains("application/json"))
+                {
+                    try
+                    {
+                        JToken json = JObject.Parse(data);
+                        if (json != null && json.SelectToken("code") != null)
+                        {
+                            code = Convert.ToInt32(json.SelectToken("code"));
+                        }
+                        if (json != null && json.SelectToken("category") != null)
+                        {
+                            category = Convert.ToInt32(json.SelectToken("category"));
+                        }
+                        if (json != null && json.SelectToken("message") != null)
+                        {
+                            message = json.SelectToken("message").ToString();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // data is not json and not in the format we expect
+                    }
+                }
+            }
 
-				case HttpStatusCode.BadRequest: // 400
-					return new InvalidRequestException(statusCode, data, message, category, code); // Often missing a required parameter
+            switch (statusCode)
+            {
+                case HttpStatusCode.Found: // 302
+                    return new RedirectionException(statusCode, data, message, category, code); // Used for redirection response in 3DS, Masterpass and Interac Online requests
 
-				case HttpStatusCode.Unauthorized: // 401
-					return new UnauthorizedException(statusCode, data, message, category, code); // authentication exception
+                case HttpStatusCode.BadRequest: // 400
+                    return new InvalidRequestException(statusCode, data, message, category, code); // Often missing a required parameter
 
-				case HttpStatusCode.PaymentRequired: // 402
-					return new BusinessRuleException(statusCode, data, message, category, code); // Request failed business requirements or rejected by processor/bank
+                case HttpStatusCode.Unauthorized: // 401
+                    return new UnauthorizedException(statusCode, data, message, category, code); // authentication exception
 
-				case HttpStatusCode.Forbidden: // 403
-					return new ForbiddenException(statusCode, data, message, category, code); // authorization failure
+                case HttpStatusCode.PaymentRequired: // 402
+                    return new BusinessRuleException(statusCode, data, message, category, code); // Request failed business requirements or rejected by processor/bank
 
-				case HttpStatusCode.NotFound: // 404
-					return new NotFoundException(statusCode, data, message, category, code); // item(s) not found
+                case HttpStatusCode.Forbidden: // 403
+                    return new ForbiddenException(statusCode, data, message, category, code); // authorization failure
 
-				case HttpStatusCode.MethodNotAllowed: // 405
-					return new InvalidRequestException(statusCode, data, message, category, code); // Sending the wrong HTTP Method
+                case HttpStatusCode.NotFound: // 404
+                    return new NotFoundException(statusCode, data, message, category, code); // item(s) not found
 
-				case HttpStatusCode.UnsupportedMediaType: // 415
-					return new InvalidRequestException(statusCode, data, message, category, code); // Sending an incorrect Content-Type
+                case HttpStatusCode.MethodNotAllowed: // 405
+                    return new InvalidRequestException(statusCode, data, message, category, code); // Sending the wrong HTTP Method
 
-				default:
-					return new InternalServerException(statusCode, data, message, category, code);
-			}
-		}
+                case HttpStatusCode.UnsupportedMediaType: // 415
+                    return new InvalidRequestException(statusCode, data, message, category, code); // Sending an incorrect Content-Type
 
-		private static string GetResponseBody(WebResponse response)
-		{
-			var stream = response.GetResponseStream();
+                default:
+                    return new InternalServerException(statusCode, data, message, category, code);
+            }
+        }
 
-			if (stream == null)
-			{
-				throw new Exception("Could not get a response from Beanstream API");
-			}
+        private static string GetResponseBody(WebResponse response)
+        {
+            var stream = response.GetResponseStream();
 
-			using (var reader = new StreamReader(stream))
-			{
-				return reader.ReadToEnd();
-			}
-		}
-	}
+            if (stream == null)
+            {
+                throw new Exception("Could not get a response from Beanstream API");
+            }
+
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+    }
 }

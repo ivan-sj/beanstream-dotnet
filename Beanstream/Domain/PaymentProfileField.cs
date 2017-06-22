@@ -20,27 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 
 namespace Beanstream
 {
-	public class PaymentProfileField
-	{
-		[JsonProperty(PropertyName = "customer_code")]
-		public string CustomerCode { get; set; }
+    public class PaymentProfileField
+    {
+        [JsonProperty(PropertyName = "customer_code")]
+        public string CustomerCode { get; set; }
 
-		[JsonProperty(PropertyName = "card_id")]
-		public int CardId { get; set; }
+        [JsonProperty(PropertyName = "card_id")]
+        public int CardId { get; set; }
 
-		[JsonProperty(PropertyName = "complete")]
-		public bool Complete { get; set; }
+        [JsonProperty(PropertyName = "complete")]
+        public bool Complete { get; set; }
 
-		public PaymentProfileField() {
-			CardId = 1; // 1+
-			Complete = true;
-		}
+        public PaymentProfileField()
+        {
+            CardId = 1; // 1+
+            Complete = true;
+        }
 
-	}
+    }
 }
 

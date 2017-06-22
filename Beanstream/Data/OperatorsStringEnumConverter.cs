@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
-using System.Reflection;
 using System.ComponentModel;
 
 /// <summary>
@@ -31,28 +30,31 @@ using System.ComponentModel;
 /// </summary>
 namespace Beanstream
 {
-	public class OperatorsStringEnumConverter : Newtonsoft.Json.Converters.StringEnumConverter
-	{
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			if (value is Operators)
-			{
-				FieldInfo fi = value.GetType().GetField(value.ToString());
+    public class OperatorsStringEnumConverter : Newtonsoft.Json.Converters.StringEnumConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is Operators)
+            {
+                var fi = value.GetType().GetField(value.ToString());
 
-				DescriptionAttribute[] attributes =
-					(DescriptionAttribute[])fi.GetCustomAttributes(
-						typeof(DescriptionAttribute),
-						false);
+                var attributes =
+                    (DescriptionAttribute[])fi.GetCustomAttributes(
+                        typeof(DescriptionAttribute),
+                        false);
 
-				if (attributes != null &&
-					attributes.Length > 0)
-					writer.WriteValue( attributes[0].Description );
-				else
-					writer.WriteValue( value.ToString() );
-			}
-			else
-				base.WriteJson(writer, value, serializer);
-		}
-	}
+                if (attributes.Length > 0)
+                {
+                    writer.WriteValue(attributes[0].Description);
+                }
+                else
+                {
+                    writer.WriteValue(value.ToString());
+                }
+            }
+            else
+                base.WriteJson(writer, value, serializer);
+        }
+    }
 }
 

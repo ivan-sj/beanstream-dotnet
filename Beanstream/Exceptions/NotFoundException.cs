@@ -31,10 +31,11 @@ using System.Net;
 /// </summary>
 namespace Beanstream.Api.SDK.Exceptions
 {
-	public class NotFoundException : BaseApiException
-	{
-		public NotFoundException(HttpStatusCode statusCode, string response, string message, int category, int code)
-			: base(statusCode, response, message, category, code)
-		{ }
-	}
+    public class NotFoundException : BaseApiException
+    {
+        public NotFoundException(HttpStatusCode statusCode, string response, string message, int category, int code)
+            : base(statusCode, response, message, category, code)
+        {
+        }
+    }
 }

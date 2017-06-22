@@ -39,10 +39,11 @@ using System.Net;
 /// </summary>
 namespace Beanstream.Api.SDK.Exceptions
 {
-	public class InternalServerException : BaseApiException
-	{
-		public InternalServerException(HttpStatusCode statusCode, string response, string message, int category, int code)
-			: base(statusCode, response, message, category, code)
-		{ }
-	}
+    public class InternalServerException : BaseApiException
+    {
+        public InternalServerException(HttpStatusCode statusCode, string response, string message, int category, int code)
+            : base(statusCode, response, message, category, code)
+        {
+        }
+    }
 }

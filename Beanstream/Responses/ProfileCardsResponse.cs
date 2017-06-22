@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Beanstream.Api.SDK;
 using System.Collections.Generic;
 using Beanstream.Api.SDK.Domain;
@@ -28,10 +28,10 @@ using Newtonsoft.Json;
 
 namespace Beanstream
 {
-	public class ProfileCardsResponse : ProfileResponse
-	{
-		[JsonProperty(PropertyName = "card")]
-		public IList<Card> Cards {get; set;}
-	}
+    public class ProfileCardsResponse : ProfileResponse
+    {
+        [JsonProperty(PropertyName = "card")]
+        public IList<Card> Cards { get; set; }
+    }
 }
 

@@ -20,7 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
+
 
 /// <summary>
 /// Holds the account configuration for the merchant.
@@ -33,6 +34,7 @@ namespace Beanstream.Api.SDK
 	public class Configuration
 	{
 		public int MerchantId { get; set;}
+		public int? SubMerchantId { get; set;}
 		public string PaymentsApiPasscode { get; set;}
 		public string ReportingApiPasscode { get; set;}
 		public string ProfilesApiPasscode { get; set;}
@@ -41,8 +43,8 @@ namespace Beanstream.Api.SDK
 
 		public Configuration ()
 		{
-			this.Platform = "www";
-			this.Version = "1";
+			Platform = "www";
+			Version = "1";
 		}
 	}
 }

@@ -23,38 +23,38 @@
 
 namespace Beanstream.Api.SDK.Requests
 {
-	/// <summary>
-	/// Credentials for authentication. You do not want to create this object yourself
-	/// when using the API however it is available to use if you want to make a custom 
-	/// request, such as leveraging the connection classes here to talk to the
-	/// Legato service.
-	/// </summary>
-	public class Credentials
-	{
-		private readonly string _username;
-		private readonly string _password;
-		private readonly string _authScheme;
+    /// <summary>
+    /// Credentials for authentication. You do not want to create this object yourself
+    /// when using the API however it is available to use if you want to make a custom 
+    /// request, such as leveraging the connection classes here to talk to the
+    /// Legato service.
+    /// </summary>
+    public class Credentials
+    {
+        private readonly string _username;
+        private readonly string _password;
+        private readonly string _authScheme;
 
-		public Credentials(string username, string password, string authScheme)
-		{
-			_username = username;
-			_password = password;
-			_authScheme = authScheme;
-		}
+        public Credentials(string username, string password, string authScheme)
+        {
+            _username = username;
+            _password = password;
+            _authScheme = authScheme;
+        }
 
-		public string Username
-		{
-			get { return _username; }
-		}
+        public string Username
+        {
+            get { return _username; }
+        }
 
-		public string Password
-		{
-			get { return _password; }
-		}
+        public string Password
+        {
+            get { return _password; }
+        }
 
-		public string AuthScheme
-		{
-			get { return _authScheme; }
-		}
-	}
+        public string AuthScheme
+        {
+            get { return _authScheme; }
+        }
+    }
 }

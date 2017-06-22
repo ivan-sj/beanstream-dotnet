@@ -20,19 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
 
 namespace Beanstream.Api.SDK
 {
-	/// <summary>
-	/// Step 2 in the Interac purchase process.
-	/// This response contains the recirection info for the web browser to take
-	/// the customer to the official Interac page.
-	/// 
-	/// </summary>
-	public class InteracPurchaseResponse : PaymentResponse
-	{
+    /// <summary>
+    /// Step 2 in the Interac purchase process.
+    /// This response contains the recirection info for the web browser to take
+    /// the customer to the official Interac page.
+    /// 
+    /// </summary>
+    public class InteracPurchaseResponse : PaymentResponse
+    {
 
-	}
+    }
 }
 

@@ -23,11 +23,11 @@
 
 namespace Beanstream.Api.SDK
 {
-	public enum HttpMethod
-	{
-		Post,
-		Put,
-		Get,
-		Delete
-	}
+    public enum HttpMethod
+    {
+        Post,
+        Put,
+        Get,
+        Delete
+    }
 }

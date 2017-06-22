@@ -20,16 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Beanstream.Api.SDK.Domain;
 
 namespace Beanstream.Api.SDK.Requests
 {
-	public class UnreferencedCardReturnRequest : ReturnRequest
-	{
-		public int adjId { get; set; }
-		public readonly string payment_method = PaymentMethods.card.ToString();
-		public Card card { get; set; }
-	}
+    public class UnreferencedCardReturnRequest : ReturnRequest
+    {
+        public int adjId { get; set; }
+        public readonly string payment_method = PaymentMethods.card.ToString();
+        public Card card { get; set; }
+    }
 }
 

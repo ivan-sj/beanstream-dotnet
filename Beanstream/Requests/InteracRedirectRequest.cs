@@ -20,15 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
 
 namespace Beanstream.Api.SDK.Requests
 {
-	public class InteracRedirectRequest
-	{
-		public readonly string payment_method = PaymentMethods.interac.ToString ();
+    public class InteracRedirectRequest
+    {
+        public readonly string payment_method = PaymentMethods.interac.ToString();
 
-		public InteracRedirectResponse interac_response { get; set; }
-	}
+        public InteracRedirectResponse interac_response { get; set; }
+    }
 }
 

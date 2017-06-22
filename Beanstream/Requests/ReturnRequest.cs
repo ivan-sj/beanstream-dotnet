@@ -20,8 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
-using Beanstream.Api.SDK.Requests;
+
 using Newtonsoft.Json;
 
 /// <summary>
@@ -29,19 +28,19 @@ using Newtonsoft.Json;
 /// </summary>
 namespace Beanstream.Api.SDK.Requests
 {
-	public class ReturnRequest
-	{
-		[JsonProperty(PropertyName = "payment_id")]
-		public string PaymentId { get; set; }
+    public class ReturnRequest
+    {
+        [JsonProperty(PropertyName = "payment_id")]
+        public string PaymentId { get; set; }
 
-		[JsonProperty(PropertyName = "merchant_id")]
-		public string MerchantId { get; set; }
+        [JsonProperty(PropertyName = "merchant_id")]
+        public string MerchantId { get; set; }
 
-		[JsonProperty(PropertyName = "order_number")]
-		public string OrderNumber { get; set; }
+        [JsonProperty(PropertyName = "order_number")]
+        public string OrderNumber { get; set; }
 
-		[JsonProperty(PropertyName = "amount")]
-		public decimal Amount { get; set; }
-	}
+        [JsonProperty(PropertyName = "amount")]
+        public decimal Amount { get; set; }
+    }
 }
 

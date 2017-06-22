@@ -25,10 +25,11 @@ using System;
 
 namespace Beanstream.Api.SDK.Exceptions
 {
-	public class CommunicationException : Exception
-	{
-		public CommunicationException(string message, Exception exception)
-			: base(message, exception)
-		{ }
-	}
+    public class CommunicationException : Exception
+    {
+        public CommunicationException(string message, Exception exception)
+            : base(message, exception)
+        {
+        }
+    }
 }

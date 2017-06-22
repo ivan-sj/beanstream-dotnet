@@ -36,27 +36,34 @@ using System.Net;
 /// </summary>
 namespace Beanstream.Api.SDK.Exceptions
 {
-	public class InvalidRequestException : BaseApiException
-	{
-		public InvalidRequestException(HttpStatusCode statusCode, string response, string message, int category, int code)
-			: base(statusCode, response, message, category, code)
-		{ }
+    public class InvalidRequestException : BaseApiException
+    {
+        public InvalidRequestException(HttpStatusCode statusCode, string response, string message, int category,
+            int code)
+            : base(statusCode, response, message, category, code)
+        {
+        }
 
-		new public bool IsUserError() {
-			if (Category == 1)
-				return true;
-			else if (Category == 3 && Code == 52)
-				return true;
-			else
-				return false;
-		}
+        new public bool IsUserError()
+        {
+            if (Category == 1)
+            {
+                return true;
+            }
+            if (Category == 3 && Code == 52)
+            {
+                return true;
+            }
+            return false;
+        }
 
-		new public string UserFacingMessage ()
-		{
-			if (IsUserError())
-				return ResponseMessage;
-			else
-				return base.UserFacingMessage();
-		}
-	}
+        new public string UserFacingMessage()
+        {
+            if (IsUserError())
+            {
+                return ResponseMessage;
+            }
+            return base.UserFacingMessage();
+        }
+    }
 }

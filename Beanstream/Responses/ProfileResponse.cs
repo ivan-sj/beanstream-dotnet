@@ -20,22 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 
 namespace Beanstream.Api.SDK
 {
-	public class ProfileResponse
-	{
-		[JsonProperty(PropertyName = "code")]
-		public string Code { get; set; }
+    public class ProfileResponse
+    {
+        [JsonProperty(PropertyName = "code")]
+        public string Code { get; set; }
 
-		[JsonProperty(PropertyName = "message")]
-		public string Message { get; set; }
+        [JsonProperty(PropertyName = "message")]
+        public string Message { get; set; }
 
-		[JsonProperty(PropertyName = "customer_code")]
-		public string Id { get; set; }
+        [JsonProperty(PropertyName = "customer_code")]
+        public string Id { get; set; }
 
-	}
+    }
 }
 

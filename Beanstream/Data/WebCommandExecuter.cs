@@ -27,41 +27,41 @@ using System.Net;
 
 namespace Beanstream.Api.SDK.Data
 {
-	/// <summary>
-	/// Executes web requests. This piece of code is pulled out from HttpWebRequest
-	/// (which does the heavy lifting of the actual request) so that we can plug in
-	/// mock responses for unit testing.
-	/// </summary>
-	public class WebCommandExecuter : IWebCommandExecuter
-	{
-		public WebCommandResult<T> ExecuteCommand<T>(IWebCommandSpec<T> spec)
-		{
-			if(spec == null) 
-			{
-				throw new ArgumentNullException("spec");
-			}
+    /// <summary>
+    /// Executes web requests. This piece of code is pulled out from HttpWebRequest
+    /// (which does the heavy lifting of the actual request) so that we can plug in
+    /// mock responses for unit testing.
+    /// </summary>
+    public class WebCommandExecuter : IWebCommandExecuter
+    {
+        public WebCommandResult<T> ExecuteCommand<T>(IWebCommandSpec<T> spec)
+        {
+            if (spec == null)
+            {
+                throw new ArgumentNullException("spec");
+            }
 
-			var result = new WebCommandResult<T>();
-			var request = WebRequest.Create(spec.Url);
+            var result = new WebCommandResult<T>();
+            var request = WebRequest.Create(spec.Url);
 
-			spec.PrepareRequest(request);
+            spec.PrepareRequest(request);
 
-			using(var response = request.GetResponse() as HttpWebResponse)
-			{
-				if (response == null)
-				{
-					throw new Exception("Could not get a response from Beanstream API");
-				}
+            using (var response = request.GetResponse() as HttpWebResponse)
+            {
+                if (response == null)
+                {
+                    throw new Exception("Could not get a response from Beanstream API");
+                }
 
-				result.ReturnValue = (int) response.StatusCode;
+                result.ReturnValue = (int)response.StatusCode;
 
-				if(response.StatusCode == (HttpStatusCode) 200)
-				{
-					result.Response = spec.MapResponse(response);
-				}
-			}
+                if (response.StatusCode == (HttpStatusCode)200)
+                {
+                    result.Response = spec.MapResponse(response);
+                }
+            }
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

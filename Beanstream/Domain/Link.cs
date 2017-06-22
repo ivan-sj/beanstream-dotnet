@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 
 /// <summary>
@@ -31,16 +31,16 @@ using Newtonsoft.Json;
 /// </summary>
 namespace Beanstream.Api.SDK.Domain
 {
-	public class Link
-	{
-		[JsonProperty(PropertyName = "rel")]
-		public string Rel { get; set; }
+    public class Link
+    {
+        [JsonProperty(PropertyName = "rel")]
+        public string Rel { get; set; }
 
-		[JsonProperty(PropertyName = "href")]
-		public string Href { get; set; }
+        [JsonProperty(PropertyName = "href")]
+        public string Href { get; set; }
 
-		[JsonProperty(PropertyName = "method")]
-		public string Method { get; set; }
-	}
+        [JsonProperty(PropertyName = "method")]
+        public string Method { get; set; }
+    }
 }
 

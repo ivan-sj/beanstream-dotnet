@@ -20,19 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
 
 namespace Beanstream.Api.SDK.Requests
 {
-	public class UnreferencedSwipeReturnRequest : ReturnRequest
-	{
-		public readonly string payment_method = PaymentMethods.swipe.ToString();
-		public bool complete { get; set; }
-		public string track2_data { get; set; }
+    public class UnreferencedSwipeReturnRequest : ReturnRequest
+    {
+        public readonly string payment_method = PaymentMethods.swipe.ToString();
+        public bool complete { get; set; }
+        public string track2_data { get; set; }
 
-		public UnreferencedSwipeReturnRequest() {
-			complete = true;
-		}
-	}
+        public UnreferencedSwipeReturnRequest()
+        {
+            complete = true;
+        }
+    }
 }
 

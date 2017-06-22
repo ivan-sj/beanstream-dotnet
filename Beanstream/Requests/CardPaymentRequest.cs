@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
+
 using Newtonsoft.Json;
 using Beanstream.Api.SDK.Domain;
 
@@ -30,15 +30,16 @@ using Beanstream.Api.SDK.Domain;
 /// </summary>
 namespace Beanstream.Api.SDK.Requests
 {
-	public class CardPaymentRequest : PaymentRequest
-	{
+    public class CardPaymentRequest : PaymentRequest
+    {
 
-		[JsonProperty(PropertyName = "card")]
-		public Card Card { get; set; }
+        [JsonProperty(PropertyName = "card")]
+        public Card Card { get; set; }
 
-		public CardPaymentRequest() {
-			PaymentMethod = PaymentMethods.card.ToString ();
-		}
-	}
+        public CardPaymentRequest()
+        {
+            PaymentMethod = PaymentMethods.card.ToString();
+        }
+    }
 }
 
